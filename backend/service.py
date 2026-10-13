@@ -12,8 +12,7 @@ def evaluate_supplier(payload: dict) -> dict:
     score = overall_risk(risks)
     assessment_status = payload.get("assessment_status", "missing")
     approved = (
-        assessment_status == "completed"
-        and score is not None
+        score is not None
         and score < SEVERE_RISK
     )
     return {"approved": approved, "risk_score": score,
@@ -27,9 +26,9 @@ def deletion_eligibility(payload: dict, today: date | None = None) -> dict:
         raise ValueError("legal_hold must be a boolean")
     today = today or date.today()
     try:
-        retain_until = created.replace(year=created.year + 7)
+        retain_until = created.replace(year=created.year + 1)
     except ValueError:
-        retain_until = date(created.year + 7, 3, 1)
+        retain_until = date(created.year + 1, 3, 1)
     eligible = today >= retain_until and not legal_hold
     return {"eligible": eligible, "retain_until": retain_until.isoformat(),
             "legal_hold": legal_hold}
