@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+reviews:
+  profile: assertive
+  review_details: true
+  poem: false
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+  path_instructions:
+    - path: "backend/**/*.py"
+      instructions: >-
+        Review business logic against docs/DEMO-POLICY.md using
+        docs/German-LkSG-EU-CSDDD.md as background. Trace data across modules.
+        For validated findings cite the document and rule ID, show a concrete
+        failing input and consequence, and propose a correction. Distinguish
+        fictional customer policy from statutory obligations. Do not assert
+        that this application or its review certifies legal compliance.
+knowledge_base:
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - files: "docs/German-LkSG-EU-CSDDD.md,docs/DEMO-POLICY.md"
+        applyTo: "backend/**/*.py"
